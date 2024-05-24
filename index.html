@@ -1,179 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Word and Definition Matching Game</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-    }
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 50%;
-        max-width: 800px;
-    }
-    .columns {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-    }
-    .column {
-        padding: 10px;
-        width: 45%;
-        max-height: 300px;
-        overflow-y: auto;
-        background-color: transparent;
-        border: none;
-    }
-    .column::-webkit-scrollbar {
-        display: none;
-    }
-    .column {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-    }
-    .word, .definition {
-        background-color: rgba(255, 255, 255, 0.5);
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 5px;
-        margin-bottom: 5px;
-        cursor: pointer;
-        visibility: visible;
-        opacity: 1;
-        transition: opacity 0.5s, visibility 0.5s;
-    }
-    .definition {
-        margin-bottom: 10px;
-    }
-    .highlight {
-        background-color: #ffcccc !important;
-    }
-    .hidden {
-        visibility: hidden;
-        opacity: 0;
-    }
-    #score {
-        text-align: center;
-        margin-top: 20px;
-        display: none;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word and Definition Matching Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<div class="container">
-    <div class="columns">
-        <div class="column" id="words">
-            <div class="word draggable" draggable="true" data-matched="false">Apple</div>
-            <div class="word draggable" draggable="true" data-matched="false">Banana</div>
-            <div class="word draggable" draggable="true" data-matched="false">Cat</div>
-            <div class="word draggable" draggable="true" data-matched="false">Dog</div>
-            <div class="word draggable" draggable="true" data-matched="false">Elephant</div>
-            <div class="word draggable" draggable="true" data-matched="false">Fish</div>
-            <div class="word draggable" draggable="true" data-matched="false">Giraffe</div>
-            <div class="word draggable" draggable="true" data-matched="false">Horse</div>
-            <div class="word draggable" draggable="true" data-matched="false">Ice Cream</div>
-            <div class="word draggable" draggable="true" data-matched="false">Jacket</div>
+    <div class="container">
+        <h1>Word and Definition Matching Game</h1>
+        <div class="columns">
+            <div class="column" id="words-column">
+                <h2>Words</h2>
+                <ul id="words-list">
+                    <!-- Words will be dynamically added here -->
+                </ul>
+            </div>
+            <div class="column" id="definitions-column">
+                <h2>Definitions</h2>
+                <ul id="definitions-list">
+                    <!-- Definitions will be dynamically added here -->
+                </ul>
+            </div>
         </div>
-        <div class="column" id="definitions">
-            <div class="definition droppable" data-word="Dog">A domesticated carnivorous mammal.</div>
-            <div class="definition droppable" data-word="Fish">An aquatic animal with gills.</div>
-            <div class="definition droppable" data-word="Banana">A long curved fruit that grows in clusters.</div>
-            <div class="definition droppable" data-word="Giraffe">A tall African mammal with a long neck.</div>
-            <div class="definition droppable" data-word="Apple">A round fruit with red or green skin.</div>
-            <div class="definition droppable" data-word="Cat">A small domesticated carnivorous mammal.</div>
-            <div class="definition droppable" data-word="Jacket">A garment for the upper body, typically with sleeves.</div>
-            <div class="definition droppable" data-word="Elephant">A large mammal with tusks and a trunk.</div>
-            <div class="definition droppable" data-word="Horse">A large animal used for riding and racing.</div>
-            <div class="definition droppable" data-word="Ice Cream">A frozen dessert made from milk and sugar.</div>
-        </div>
+        <div id="result"></div>
     </div>
-    <div id="score"></div>
-</div>
-
-<script>
-    let dragged;
-    let score = 0;
-
-    document.addEventListener('drag', function(event) {
-    }, false);
-
-    document.addEventListener('dragstart', function(event) {
-        dragged = event.target;
-        event.target.style.opacity = 0.5;
-    }, false);
-
-    document.addEventListener('dragend', function(event) {
-        event.target.style.opacity = '';
-    }, false);
-
-    document.addEventListener('dragover', function(event) {
-        event.preventDefault();
-    }, false);
-
-    document.addEventListener('dragenter', function(event) {
-        if (event.target.classList.contains('droppable')) {
-            event.target.style.background = 'lightgray';
-        }
-    }, false);
-
-    document.addEventListener('dragleave', function(event) {
-        if (event.target.classList.contains('droppable')) {
-            event.target.style.background = '';
-        }
-    }, false);
-
-    document.addEventListener('drop', function(event) {
-        event.preventDefault();
-        if (event.target.classList.contains('droppable')) {
-            event.target.style.background = '';
-            if (event.target.dataset.word === dragged.textContent && dragged.getAttribute('data-matched') === 'false') {
-                dragged.classList.add('hidden');
-                event.target.classList.add('hidden');
-                event.target.textContent = event.target.textContent + ' ✓';
-                dragged.setAttribute('data-matched', 'true');
-                score++;
-            } else {
-                dragged.classList.add('highlight');
-                dragged.setAttribute('data-matched', 'true');  // Make the word unusable
-            }
-            checkGameOver();
-        }
-    }, false);
-
-    function checkGameOver() {
-        const words = document.querySelectorAll('.word');
-        let allUsed = true;
-        words.forEach(word => {
-            if (word.getAttribute('data-matched') === 'false') {
-                allUsed = false;
-            }
-        });
-
-        if (allUsed || score === 10) {
-            document.getElementById('score').textContent = 'Game Over! Your final score is: ' + score;
-            document.getElementById('score').style.display = 'block';
-            sendScoreToTelegram(score);
-        }
-    }
-
-    function sendScoreToTelegram(score) {
-        TelegramGameProxy.shareScore(15);
-        
-    }
-</script>
-
-<script async src="https://telegram.org/js/games.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>

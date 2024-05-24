@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-image: url(wow.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+.columns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+.column {
+    width: 45%;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    height: 300px; /* Fixed height */
+    overflow-y: scroll; /* Enable scrolling */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 0;
+    padding-right: 15px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+ul::-webkit-scrollbar {
+    width: 0px; /* Remove scrollbar for WebKit browsers */
+    display: none;
+}
+
+li {
+    padding: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s ease; /* Smooth transition for removal */
+}
+
+li:hover {
+    background-color: #f9f9f9;
+}
+
+.selected {
+    background-color: #cce5ff;
+}
+
+.matched {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.incorrect {
+    background-color: #ebe2e3;
+    color: rgb(12, 11, 11);
+    pointer-events: none;
+}
+
+.hidden {
+    display: none; /* Hide the item visually and remove its space */
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
