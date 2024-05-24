@@ -163,17 +163,13 @@
         if (allUsed || score === 10) {
             document.getElementById('score').textContent = 'Game Over! Your final score is: ' + score;
             document.getElementById('score').style.display = 'block';
-            updateScore(617407991, score);
+            sendScoreToTelegram(score);
         }
     }
 
-    function updateScore(userId, score) {
-        // Call TelegramGameProxy.setGameScore to set the game score
-        // Parameters:
-        //   userId: Unique identifier of the target user
-        //   score: New score for the user
-        //   force: Pass true to update the score even if it decreases
-        TelegramGameProxy.setGameScore(userId, 12, false);
+    function sendScoreToTelegram(score) {
+        TelegramGameProxy.shareScore(15);
+        
     }
 </script>
 
