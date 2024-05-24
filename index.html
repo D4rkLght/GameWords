@@ -14,32 +14,22 @@
         margin: 0;
         background-color: #f0f0f0;
     }
-
-    h1 {
-        font-size: 2em; /* Keep the font size */
-        color: #333;
-        margin-bottom: 20px;
-    }
     .container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 70%;
+        width: 50%;
         max-width: 800px;
     }
     .columns {
         display: flex;
         justify-content: space-between;
         width: 100%;
-        background: url('wow.jpg') ;
-        background-position: center;
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
     }
     .column {
         padding: 10px;
         width: 45%;
-        max-height: 400px;
+        max-height: 300px;
         overflow-y: auto;
         background-color: transparent;
         border: none;
@@ -52,7 +42,7 @@
         scrollbar-width: none;  /* Firefox */
     }
     .word, .definition {
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.5);
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 5px;
@@ -61,7 +51,6 @@
         visibility: visible;
         opacity: 1;
         transition: opacity 0.5s, visibility 0.5s;
-        color: rgba(255, 255, 255, 0.8);
     }
     .definition {
         margin-bottom: 10px;
@@ -83,7 +72,6 @@
 <body>
 
 <div class="container">
-    <h1>Word-Definition Matching Game</h1>
     <div class="columns">
         <div class="column" id="words">
             <div class="word draggable" draggable="true" data-matched="false">Apple</div>
@@ -175,10 +163,16 @@
         if (allUsed || score === 10) {
             document.getElementById('score').textContent = 'Game Over! Your final score is: ' + score;
             document.getElementById('score').style.display = 'block';
+            sendScoreToTelegram(score);
         }
     }
+
+    function sendScoreToTelegram(score) {
+        TelegramGameProxy.shareScore(score);
+    }
 </script>
-<script src="https://telegram.org/js/games.js"></script>
+
+<script async src="https://telegram.org/js/games.js"></script>
 
 </body>
 </html>
