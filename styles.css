@@ -6,7 +6,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #000000e1;
+    color: #999;
 }
 
 .container {
@@ -16,11 +17,12 @@ body {
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
     background-image: url(wow.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
+    height: 60vh;
 }
 
 .columns {
@@ -37,14 +39,15 @@ body {
 ul {
     list-style: none;
     padding: 0;
-    height: 300px; /* Fixed height */
+    height: 350px; /* Fixed height */
     overflow-y: scroll; /* Enable scrolling */
-    border: 1px solid #ddd;
+    border: 3px solid #0f0e0e38;
     border-radius: 5px;
     margin: 0;
     padding-right: 15px;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    color: #ffffffbb;
 }
 
 ul::-webkit-scrollbar {
@@ -59,7 +62,7 @@ li {
 }
 
 li:hover {
-    background-color: #f9f9f9;
+    background-color: #999;
 }
 
 .selected {
@@ -85,4 +88,5 @@ li:hover {
     margin-top: 20px;
     font-size: 1.2em;
     font-weight: bold;
+    color: rgba(40, 218, 52, 0.8);
 }

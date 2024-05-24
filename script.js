@@ -1,41 +1,55 @@
 const words = [
-    'Algorithm', 'Binary', 'Compiler', 'Database', 'Encryption',
-    'Firewall', 'Gigabyte', 'Hyperlink', 'Internet', 'JavaScript'
+    'path', 'star', 'courage', 'brave', 'thorns',
+    'luck', 'adversity', 'fall', 'rise', 'goal', 'result'
 ];
 
 const definitions = [
-    'A process or set of rules to be followed in calculations or other problem-solving operations.',
-    'A base-2 numeral system which uses only two binary digits, 0 and 1.',
-    'A program that converts instructions into a machine-code or lower-level form so that they can be read and executed by a computer.',
-    'A structured set of data held in a computer, especially one that is accessible in various ways.',
-    'The process of converting information or data into a code, especially to prevent unauthorized access.',
-    'A part of a computer system or network that is designed to block unauthorized access while permitting outward communication.',
-    'A unit of information equal to one billion (10^9) bytes.',
-    'A link from a hypertext document to another location, activated by clicking on a highlighted word or image.',
-    'A global computer network providing a variety of information and communication facilities, consisting of interconnected networks using standardized communication protocols.',
-    'A high-level, dynamic, untyped, and interpreted programming language.'
+    'a way of life, conduct, or thought',
+    'a natural luminous body visible in the sky especially at night',
+    'mental or moral strength to venture, persevere, and withstand danger, fear, or difficulty', 
+    'having or showing mental or moral strength to face danger, fear, or difficulty : having or showing courage',
+    'something that causes distress or irritation', 
+    'a force that brings good fortune.', 
+    'a state or instance of serious or continued difficulty or misfortune',
+    'to drop oneself to a lower position', 
+    'to move upward ', 
+    'the score resulting from such an act', 
+    'something obtained by calculation or investigation'
 ];
 
 let selectedWord = null;
 let selectedDefinition = null;
 let score = 0;
 
+// Function to shuffle an array
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 window.onload = function() {
     const wordsList = document.getElementById('words-list');
     const definitionsList = document.getElementById('definitions-list');
 
-    words.forEach((word, index) => {
+    // Shuffle words and definitions
+    const shuffledWords = shuffle([...words]);
+    const shuffledDefinitions = shuffle([...definitions]);
+
+    shuffledWords.forEach((word, index) => {
         const wordItem = document.createElement('li');
         wordItem.innerText = word;
-        wordItem.dataset.index = index;
+        wordItem.dataset.index = words.indexOf(word); // Original index
         wordItem.addEventListener('click', () => selectWord(wordItem));
         wordsList.appendChild(wordItem);
     });
 
-    definitions.forEach((definition, index) => {
+    shuffledDefinitions.forEach((definition, index) => {
         const definitionItem = document.createElement('li');
         definitionItem.innerText = definition;
-        definitionItem.dataset.index = index;
+        definitionItem.dataset.index = definitions.indexOf(definition); // Original index
         definitionItem.addEventListener('click', () => selectDefinition(definitionItem));
         definitionsList.appendChild(definitionItem);
     });
