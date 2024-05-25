@@ -108,28 +108,28 @@ function checkGameOver() {
     }
 }
 
-// function SendMessageBot(score) {
-//     const searchString = new URLSearchParams(window.location.search);
-//     const chat_id = searchString.get('chat_id');
-//     const token = searchString.get('token');
-//     window.post = function(url, data) {
-//         return fetch(url, {method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)});
-//     }
-//     url = "https://api.telegram.org/bot" + token + "/sendMessage"
-//     text = `You have scored ${score}★`
-//     keyboard = {"inline_keyboard": [[{"text": "Get reward", "callback_data": `game_${score}`}]]}
-//     data = {'chat_id': chat_id, 'text': text, 'reply_markup': keyboard}
-//     post(url, data);
-// }
-
 function SendMessageBot(score) {
     const searchString = new URLSearchParams(window.location.search);
     const chat_id = searchString.get('chat_id');
+    const token = searchString.get('token');
     window.post = function(url, data) {
         return fetch(url, {method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)});
     }
-
-    url = "http://127.0.0.1:8000/game_words_definition"
-    data = {'chat_id': chat_id, 'score': score}
+    url = "https://api.telegram.org/bot" + token + "/sendMessage"
+    text = `You have scored ${score}★`
+    keyboard = {"inline_keyboard": [[{"text": "Get reward", "callback_data": `game_${score}`}]]}
+    data = {'chat_id': chat_id, 'text': text, 'reply_markup': keyboard}
     post(url, data);
 }
+
+// function SendMessageBot(score) {
+//     const searchString = new URLSearchParams(window.location.search);
+//     const chat_id = searchString.get('chat_id');
+//     window.post = function(url, data) {
+//         return fetch(url, {method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)});
+//     }
+
+//     url = "http://127.0.0.1:8000/game_words_definition"
+//     data = {'chat_id': chat_id, 'score': score}
+//     post(url, data);
+// }
